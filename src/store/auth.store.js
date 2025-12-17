@@ -1,0 +1,40 @@
+import { defineStore } from "pinia";
+import api from "../utils/api";
+import { notification } from "ant-design-vue";
+
+const useAuth = defineStore("auth", {
+  state: () => ({
+    formModel: {
+      phone: "",
+      password: "",
+    },
+    loading: false,
+  }),
+
+  actions: {
+    login() {
+      this.loading = true;
+
+      api({
+        url: "",
+        method: "POST",
+        data: this.formModel,
+      })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("refresh_token", data.refresh_token);
+        })
+        .catch((error) => {
+          notification.error({
+            message: error.response?.data?.message || error,
+          });
+          console.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+});
+
+export default useAuth;

@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <router-view />
+    <h2>Tasks</h2>
 </template>

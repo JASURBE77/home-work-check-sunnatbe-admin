@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <router-view />
+    <h2>Groups</h2>
 </template>
