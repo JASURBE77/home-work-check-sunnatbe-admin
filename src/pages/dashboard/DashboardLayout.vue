@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import IconGroup from '../../components/icons/line/IconGroup.vue';
 import IconTasks from '../../components/icons/line/IconTasks.vue';
+import UserInfoComponent from '../../components/UserInfoComponent.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -36,12 +37,7 @@ onMounted(() => {
         </a-layout-sider>
         <a-layout>
             <a-layout-header style="background: #fff; padding: 0">
-                <div class="flex items-center justify-end mr-4 gap-3 mt-3">
-                    <a-avatar :size="32">
-                        S
-                    </a-avatar>
-                    <span class="text-2xl font-semibold m-0! p-0!">Sunnatbe</span>
-                </div>
+                <user-info-component />
             </a-layout-header>
             <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
                 <router-view />
