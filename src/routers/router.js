@@ -12,7 +12,7 @@ const routes = [
     meta: {
       title: "Tizimga kirish",
     },
-  },
+  },  
   {
     path: "/",
     name: "Dashboard",
