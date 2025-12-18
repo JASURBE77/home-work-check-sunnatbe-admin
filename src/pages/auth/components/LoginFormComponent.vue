@@ -1,9 +1,11 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import useAuth from '../../../store/auth.store';
 import { formatPhoneNumber } from '../../../utils/helpers/format.phone.number';
 import { phoneCodeValidator } from '../../../utils/helpers/phone.validator';
 
 const authStore = useAuth()
+const router = useRouter()
 
 const phoneRules = [
     {
@@ -30,10 +32,15 @@ const phoneRules = [
 function handleInput(value) {
     authStore.formModel.phone = formatPhoneNumber(value) ?? "";
 }
+
+async function login() {
+    await authStore.login()
+    router.push({name: "Dashboard"})
+}
 </script>
 
 <template>
-    <a-form :model="authStore.formModel" layout="vertical">
+    <a-form @finish="login" :model="authStore.formModel" layout="vertical">
         <a-form-item 
             :rules="phoneRules" 
             label="Telefon raqam" 

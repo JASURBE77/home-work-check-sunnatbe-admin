@@ -15,8 +15,8 @@ const useAuth = defineStore("auth", {
     login() {
       this.loading = true;
 
-      api({
-        url: "",
+      return api({
+        url: "login",
         method: "POST",
         data: this.formModel,
       })
