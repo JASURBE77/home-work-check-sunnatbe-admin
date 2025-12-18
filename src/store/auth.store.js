@@ -5,7 +5,7 @@ import { notification } from "ant-design-vue";
 const useAuth = defineStore("auth", {
   state: () => ({
     formModel: {
-      phone: "",
+      login: "",
       password: "",
     },
     loading: false,
