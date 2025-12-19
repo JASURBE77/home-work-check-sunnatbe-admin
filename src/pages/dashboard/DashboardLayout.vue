@@ -4,15 +4,17 @@ import { useRoute, useRouter } from 'vue-router';
 import IconGroup from '../../components/icons/line/IconGroup.vue';
 import IconTasks from '../../components/icons/line/IconTasks.vue';
 import UserInfoComponent from '../../components/UserInfoComponent.vue';
+import useUser from '../../store/user.store';
 
 const router = useRouter()
 const route = useRoute()
+const userStore = useUser()
 
 const selectedKeys = ref(['1']);
 
 onMounted(() => {
-    if (route.name === 'Groups') selectedKeys.value = ['1']
-    else selectedKeys.value = ['2']
+    userStore.me()
+    if (route.name === 'Users') selectedKeys.value = ['1']
 })
 </script>
 
@@ -21,16 +23,10 @@ onMounted(() => {
         <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
             <h2 class="text-white text-3xl font-bold p-5">SUNNATBE</h2>
             <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-                <a-menu-item @click="router.push({ name: 'Groups' })" key="1">
+                <a-menu-item @click="router.push({ name: 'Users' })" key="1">
                     <div class="flex items-center gap-2">
                         <icon-group class="w-4 h-4" />
-                        <span>Guruhlar</span>
-                    </div>
-                </a-menu-item>
-                <a-menu-item @click="router.push({ name: 'Tasks' })" key="2">
-                    <div class="flex items-center gap-2">
-                        <icon-tasks class="w-4 h-4" />
-                        <span>Vazifalar</span>
+                        <span>Foydalanuvchilar</span>
                     </div>
                 </a-menu-item>
             </a-menu>

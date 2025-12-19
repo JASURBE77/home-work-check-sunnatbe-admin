@@ -5,9 +5,12 @@ import useAuth from '../../../store/auth.store';
 const authStore = useAuth()
 const router = useRouter()
 
-async function login() {
-    await authStore.login()
-    router.push({name: "Dashboard"})
+function login() {
+    authStore.login(pushDashboard)
+}
+
+function pushDashboard() {
+    router.push({ name: "Dashboard" })
 }
 </script>
 

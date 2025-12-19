@@ -18,6 +18,10 @@ instance.interceptors.response.use(
       ) {
         router.push("/500");
       }
+
+      if (status === 401) {
+        router.push("/login");
+      }
     }
     return Promise.reject(error);
   }
