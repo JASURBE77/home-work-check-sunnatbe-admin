@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardLayout from "../pages/dashboard/DashboardLayout.vue";
-import GroupsView from "../pages/dashboard/groups/GroupsView.vue";
-import TasksView from "../pages/dashboard/tasks/TasksView.vue";
 import AuthView from "../pages/auth/AuthView.vue";
+import UsersView from "../pages/dashboard/groups/UsersView.vue";
+import ServerInternalError from "../pages/errors/ServerInternalError.vue";
 
 const routes = [
   {
@@ -17,12 +17,12 @@ const routes = [
     path: "/",
     name: "Dashboard",
     component: DashboardLayout,
-    redirect: { name: "Groups" },
+    redirect: { name: "Users" },
     children: [
       {
-        path: "groups",
-        name: "Groups",
-        component: GroupsView,
+        path: "users",
+        name: "Users",
+        component: UsersView,
         children: [
           {
             path: "group-students",
@@ -36,15 +36,15 @@ const routes = [
           title: "Guruhlar",
         },
       },
-      {
-        path: "tasks",
-        name: "Tasks",
-        component: TasksView,
-        meta: {
-          title: "Vazifalar",
-        },
-      },
     ],
+  },
+  {
+    path: "/500",
+    name: "ServerInternalError",
+    component: ServerInternalError,
+    meta: {
+      title: "Server xatosi",
+    },
   },
 ];
 
