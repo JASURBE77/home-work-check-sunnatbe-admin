@@ -57,6 +57,7 @@ function changeRole(value, id) {
                 <a-select 
                     @change="(value) => changeRole(value, record._id)"
                     v-model:value="record.role" 
+                    :disabled="usersStore.user._id === record._id"
                     :loading="usersStore.selectLoading[record._id]"
                     :options="options"
                     class="w-full!"
