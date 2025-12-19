@@ -33,7 +33,7 @@ const routes = [
           },
         ],
         meta: {
-          title: "Guruhlar",
+          title: "Foydalanuvchilar",
         },
       },
     ],

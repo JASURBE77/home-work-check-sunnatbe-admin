@@ -24,11 +24,11 @@ const useAuth = defineStore("auth", {
           localStorage.setItem("access_token", data.accessToken);
           localStorage.setItem("refresh_token", data.refreshToken);
           if (data?.role === "admin") {
-             notification.success({
-          message: "Login muvaffaqiyatli",
-        });
+            notification.success({
+              message: "Login muvaffaqiyatli",
+            });
 
-            callback?.()
+            callback?.();
           } else {
             notification.warn({
               message: "Sizga ruxsat yo'q",

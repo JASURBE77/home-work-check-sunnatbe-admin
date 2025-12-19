@@ -28,9 +28,23 @@ export const usersColumn = [
     align: "center",
   },
   {
+    title: "Roli",
+    dataIndex: "role",
+    key: "role",
+    width: 100,
+    align: "center",
+  },
+  {
     title: "Darajasi",
     dataIndex: "level",
     key: "level",
+    width: 120,
+    align: "center",
+  },
+  {
+    title: "Guruhi",
+    dataIndex: "group",
+    key: "group",
     width: 120,
     align: "center",
   },

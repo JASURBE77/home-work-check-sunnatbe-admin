@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+.btn {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.btn:has(svg) {
+    gap: 6px !important;
+}
