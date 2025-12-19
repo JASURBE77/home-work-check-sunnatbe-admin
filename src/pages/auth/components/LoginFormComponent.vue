@@ -1,37 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import useAuth from '../../../store/auth.store';
-import { formatPhoneNumber } from '../../../utils/helpers/format.phone.number';
-import { phoneCodeValidator } from '../../../utils/helpers/phone.validator';
 
 const authStore = useAuth()
 const router = useRouter()
-
-const phoneRules = [
-    {
-        required: true,
-        message: "Majburiy maydon",
-    },
-    {
-        validator: (_rule, value) => {
-            if (!value) return Promise.resolve();
-            const val = value || '';
-            const cleanVal = val.replace(/[-\s]/g, '');
-
-            if (!phoneCodeValidator(cleanVal)) {
-                return Promise.reject(new Error("Raqamni tog'ri formatda kiriting"));
-            } else if (cleanVal.length < 9) {
-                return Promise.reject(new Error("Minimal 9 ta raqamdan iborat bo'lishi kerak"));
-            }
-            return Promise.resolve();
-        },
-        trigger: "blur"
-    }
-];
-
-function handleInput(value) {
-    authStore.formModel.phone = formatPhoneNumber(value) ?? "";
-}
 
 async function login() {
     await authStore.login()
@@ -42,17 +14,17 @@ async function login() {
 <template>
     <a-form @finish="login" :model="authStore.formModel" layout="vertical">
         <a-form-item 
-            :rules="phoneRules" 
-            label="Telefon raqam" 
-            name="phone"
+            :rules="[
+                { required: true, message: 'Majburiy maydon' }, 
+                { min: 4, message: 'Kamida 4 belgi'}
+            ]"
+            label="Login" 
+            name="login"
         >
-            <a-input 
-                size="large" 
-                placeholder="00-000-00-00"
-                v-model:value="authStore.formModel.phone"
-                @input="handleInput"
-                addonBefore="+998"
-                :maxlength="12"
+            <a-input
+                placeholder="Loginni kiriting"
+                size="large"
+                v-model:value="authStore.formModel.login"
             />
         </a-form-item>
         <a-form-item 

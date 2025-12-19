@@ -5,7 +5,7 @@ import { notification } from "ant-design-vue";
 const useAuth = defineStore("auth", {
   state: () => ({
     formModel: {
-      phone: "",
+      login: "",
       password: "",
     },
     loading: false,
@@ -21,8 +21,8 @@ const useAuth = defineStore("auth", {
         data: this.formModel,
       })
         .then(({ data }) => {
-          localStorage.setItem("access_token", data.access_token);
-          localStorage.setItem("refresh_token", data.refresh_token);
+          localStorage.setItem("access_token", data.accessToken);
+          localStorage.setItem("refresh_token", data.refreshToken);
         })
         .catch((error) => {
           notification.error({
