@@ -168,9 +168,6 @@ const useUser = defineStore("user", {
       api({
         url: `delete/${id}`,
         method: "DELETE",
-        params: {
-          id: id,
-        },
       })
         .then(() => {
           this.users = this.users.filter((user) => user._id !== id);

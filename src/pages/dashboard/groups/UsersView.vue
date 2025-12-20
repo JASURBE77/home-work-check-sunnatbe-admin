@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch } from 'vue';
+import { onMounted } from 'vue';
 import useUser from '../../../store/user.store';
 import UserTableComponent from './components/UserTableComponent.vue';
 import UserFilterComponent from './components/UserFilterComponent.vue';
@@ -19,6 +19,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <user-filter-component />
-    <user-table-component />
+    <div v-if="route.name === 'Users'">
+        <user-filter-component />
+        <user-table-component />
+    </div>
+
+    <router-view v-else />
 </template>

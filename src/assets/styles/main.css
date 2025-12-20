@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
 .btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: all ease 400ms;
 }
 
 .btn:has(svg) {
-    gap: 6px !important;
+  gap: 6px !important;
+}
+
+.btn:active {
+  transform: scale(0.9);
 }

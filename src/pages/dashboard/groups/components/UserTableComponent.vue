@@ -9,9 +9,11 @@ import IconEdit from '../../../../components/icons/line/IconEdit.vue';
 import IconTasks from '../../../../components/icons/line/IconTasks.vue';
 import IconTrash from '../../../../components/icons/line/IconTrash.vue';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 
 const usersStore = useUser()
 const { userForm } = storeToRefs(usersStore)
+const router = useRouter()
 
 const openUserForm = ref(false)
 const userId = ref(null)
@@ -34,6 +36,15 @@ const options = [
 
 function changeRole(value, id) {
     usersStore.updateRole(value, id)
+}
+
+function openTasks(id) {
+    router.push({
+        name: 'Tasks',
+        params: {
+            userId: id
+        }
+    })
 }
 </script>
 
@@ -71,7 +82,7 @@ function changeRole(value, id) {
             </template>
             <template v-else-if="column.key === 'actions'">
                <div class="flex justify-center items-center">
-                    <a-dropdown trigger="click" class="cursor-pointer! outline-none!">
+                    <a-dropdown v-if="usersStore.user._id !== record._id" trigger="click" class="cursor-pointer! outline-none!">
                        <icon-more class="w-5 h-5"/>
 
                        <template #overlay>
@@ -84,7 +95,7 @@ function changeRole(value, id) {
                                       </template>
                                    </a-button>
                                </a-menu-item>
-                               <a-menu-item>
+                               <a-menu-item v-if="record.role === 'student'" @click="openTasks(record._id)">
                                    <a-button class="flex! justify-center! items-center! gap-2!">
                                        Vazifalari 
                                       <template #icon>

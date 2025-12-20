@@ -156,6 +156,7 @@ function closeModal() {
                     @click="closeModal"
                     danger
                     size="large"
+                    class="btn"
                 >
                     Bekor qilish
                 </a-button>
