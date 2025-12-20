@@ -166,7 +166,7 @@ const useUser = defineStore("user", {
       this.loading = true;
 
       api({
-        url: `delete`,
+        url: `delete/${id}`,
         method: "DELETE",
         params: {
           id: id,
