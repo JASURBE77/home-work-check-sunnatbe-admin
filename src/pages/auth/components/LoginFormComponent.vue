@@ -48,8 +48,11 @@ function pushDashboard() {
                 size="large"
                 html-type="submit"
                 :loading="authStore.loading"
+                class="w-full! mt-4"
             >
-                Tizimga kirish
+                <template #icon>
+                    Tizimga kirish
+                </template>
             </a-button>
         </div>
     </a-form>

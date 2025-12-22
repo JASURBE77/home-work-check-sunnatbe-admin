@@ -47,6 +47,31 @@ const useUser = defineStore("user", {
         });
     },
 
+    updateMe() {
+      this.buttonLoading = true;
+
+      api({
+        url: `update/${this.user._id}`,
+        method: "PUT",
+        data: this.user,
+      })
+        .then(({ data }) => {
+          this.user = data.user;
+          notification.success({
+            message: "Sozlamalar saqlandi",
+          });
+        })
+        .catch((error) => {
+          notification.error({
+            message: error.response?.data?.message || error,
+          });
+          console.error(error);
+        })
+        .finally(() => {
+          this.buttonLoading = false;
+        });
+    },
+
     getUsers({ size, page, search }) {
       this.loading = true;
 

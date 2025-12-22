@@ -32,6 +32,7 @@ const search = debounce((e) => {
                 size="large"
                 :maxlength="40"
                 allow-clear
+                class="w-50!"
             >
                 <template #addonAfter>
                     <icon-search class="w-5 h-5 text-gray-500" />

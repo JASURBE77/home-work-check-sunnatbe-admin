@@ -4,6 +4,7 @@ import AuthView from "../pages/auth/AuthView.vue";
 import UsersView from "../pages/dashboard/groups/UsersView.vue";
 import ServerInternalError from "../pages/errors/ServerInternalError.vue";
 import TasksView from "../pages/dashboard/tasks/TasksView.vue";
+import SettingsView from "../pages/dashboard/setting/SettingsView.vue";
 
 const routes = [
   {
@@ -13,7 +14,7 @@ const routes = [
     meta: {
       title: "Tizimga kirish",
     },
-  },  
+  },
   {
     path: "/",
     name: "Dashboard",
@@ -30,10 +31,10 @@ const routes = [
             name: "GroupStudents",
             children: [
               {
-                path: 'tasks/:userId',
+                path: "tasks/:userId",
                 name: "Tasks",
-                component: TasksView
-              }
+                component: TasksView,
+              },
             ],
             meta: {
               title: "Guruh o'quvchilari",
@@ -42,6 +43,14 @@ const routes = [
         ],
         meta: {
           title: "Foydalanuvchilar",
+        },
+      },
+      {
+        path: "setting",
+        name: "Setting",
+        component: SettingsView,
+        meta: {
+          title: "Sozlamalar",
         },
       },
     ],
