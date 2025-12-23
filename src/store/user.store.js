@@ -85,7 +85,7 @@ const useUser = defineStore("user", {
         method: "GET",
       })
         .then(({ data }) => {
-          this.users = data;
+          this.users = data.data;
         })
         .catch((error) => {
           notification.error({
