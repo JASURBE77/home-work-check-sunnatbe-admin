@@ -2,14 +2,21 @@
 import { useRouter } from 'vue-router';
 import IconSearch from '../../../../components/icons/line/IconSearch.vue';
 import IconBack from '../../../../components/icons/line/IconBack.vue';
+import useTask from '../../../../store/task.store';
 
 const router = useRouter()
+const tasksStore = useTask()
+
+function back() {
+    tasksStore.$reset()
+    router.push({ name: 'Users' })
+}
 </script>
 
 <template>
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center mb-4">
         <div class="flex items-center gap-3">
-            <a-button size="large" class="btn rounded-full!" @click="router.push({ name: 'Users' })">
+            <a-button size="large" class="btn rounded-full!" @click="back">
                 <template #icon>
                     <icon-back class="w-6 h-6" />
                 </template>

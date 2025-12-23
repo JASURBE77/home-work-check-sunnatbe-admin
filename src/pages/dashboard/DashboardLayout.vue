@@ -1,16 +1,24 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import IconGroup from '../../components/icons/line/IconGroup.vue';
 import IconSetting from '../../components/icons/line/IconSetting.vue';
 import UserInfoComponent from '../../components/UserInfoComponent.vue';
 import useTheme from '../../store/theme.pinia';
+import { useI18n } from 'vue-i18n';
+import useUser from '../../store/user.store';
 
 const router = useRouter()
 const route = useRoute()
 const themeStore = useTheme()
+const userStore = useUser()
+const { t } = useI18n()
 
 const selectedKeys = ref(['1']);
+
+onMounted(() => {
+    userStore.me()
+})
 
 watch(() => route.path, () => {
     if (route.name === 'Users') selectedKeys.value = ['1']
@@ -26,13 +34,13 @@ watch(() => route.path, () => {
                 <a-menu-item @click="router.push({ name: 'Users' })" key="1">
                     <div class="flex items-center gap-2">
                         <icon-group class="w-4 h-4" />
-                        <span>Foydalanuvchilar</span>
+                        <span>{{ t("Users.users") }}</span>
                     </div>
                 </a-menu-item>
                 <a-menu-item @click="router.push({ name: 'Setting' })" key="2">
                     <div class="flex items-center gap-2">
                         <icon-setting class="w-4 h-4" />
-                        <span>Sozlamalar</span>
+                        <span>{{ t("settings.settings") }}</span>
                     </div>
                 </a-menu-item>
             </a-menu>
@@ -44,13 +52,21 @@ watch(() => route.path, () => {
 
             <a-layout-content :class="themeStore.isDark ? 'bg-black' : 'bg-white!'""
                 :style="{ margin: '24px 16px', padding: '24px', minHeight: '280px' }">
-                <router-view />
+                <div :class="route.name !== 'Setting' ? 'table-wrapper' : ''">
+                    <router-view />
+                </div>
             </a-layout-content>
-
         </a-layout>
     </a-layout>
 </template>
 <style>
+.table-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    padding-right: 20px;
+}
+
 #components-layout-demo-custom-trigger .trigger {
     font-size: 18px;
     line-height: 64px;

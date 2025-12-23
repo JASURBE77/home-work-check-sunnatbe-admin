@@ -17,5 +17,5 @@ onMounted(() => {
 
 <template>
     <tasks-filter-component />
-    <task-table-component class="mt-4"/>
+    <task-table-component />
 </template>

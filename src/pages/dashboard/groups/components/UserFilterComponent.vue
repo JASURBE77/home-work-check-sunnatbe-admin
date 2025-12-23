@@ -6,9 +6,11 @@ import IconSearch from '../../../../components/icons/line/IconSearch.vue';
 import IconCirclePlus from '../../../../components/icons/line/IconCirclePlus.vue';
 import UserForm from './form/UserForm.vue';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { setQueries } = useQueryParams()
 const userStore = useUser()
+const { t } = useI18n()
 
 const openUserForm = ref(false)
 
@@ -22,13 +24,13 @@ const search = debounce((e) => {
 
 <template>
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-3xl font-bold">Foydalanuvchilar</h2>
+        <h2 class="text-3xl font-bold">{{ t("Users.users") }}</h2>
 
         <div class="flex justify-center gap-2">
             <a-input 
                 v-model:value="userStore.params.search" 
                 @input="search" 
-                placeholder="Qidirish..." 
+                :placeholder="t('SEARCH')" 
                 size="large"
                 :maxlength="40"
                 allow-clear
@@ -47,7 +49,7 @@ const search = debounce((e) => {
                 <template #icon>
                     <icon-circle-plus class="w-5 h-5"/>
                 </template>
-                Qo'shish
+                {{ t("ADD") }}
             </a-button>
         </div>
     </div>

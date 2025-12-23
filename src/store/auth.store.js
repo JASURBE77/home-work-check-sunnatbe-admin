@@ -12,7 +12,7 @@ const useAuth = defineStore("auth", {
   }),
 
   actions: {
-    login(callback) {
+    login(t, callback) {
       this.loading = true;
 
       api({
@@ -25,13 +25,13 @@ const useAuth = defineStore("auth", {
           localStorage.setItem("refresh_token", data.refreshToken);
           if (data?.role === "admin") {
             notification.success({
-              message: "Login muvaffaqiyatli",
+              message: t("WELCOME"),
             });
 
             callback?.();
           } else {
             notification.warn({
-              message: "Sizga ruxsat yo'q",
+              message: t("NOTIFICATION.STOPYOU"),
             });
             return;
           }

@@ -3,9 +3,11 @@ import { storeToRefs } from 'pinia';
 import useUser from '../../../../../store/user.store';
 import IconCirclePlus from '../../../../../components/icons/line/IconCirclePlus.vue';
 import IconUpdate from '../../../../../components/icons/line/IconUpdate.vue';
+import { useI18n } from 'vue-i18n';
 
 const usersStore = useUser()
 const { userForm } = storeToRefs(usersStore)
+const { t } = useI18n()
 
 const open = defineModel("open", {
     type: Boolean,
@@ -20,9 +22,9 @@ const userId = defineModel("userId", {
 
 function addUser() {
     if (userId.value) {
-        usersStore.updateUser(closeModal, userId.value)
+        usersStore.updateUser(t, closeModal, userId.value)
     } else {
-        usersStore.createUser(closeModal)
+        usersStore.createUser(t, closeModal)
     }
 }
 
@@ -44,7 +46,7 @@ function closeModal() {
         centered 
         :open="open"
         @cancel="closeModal"
-        :title="userId ? 'Foydalanuvchini yangilash' : `Foydalanuvchi qo'shish`"
+        :title="userId ? t('UPDATE_USER') : t('ADD_USER')"
     >
         <a-form
             :model="userForm"
@@ -56,12 +58,12 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: true, message: 'Majburiy maydon' }"
-                        label="Ismi"
+                        :label="t('Users.UserForm.name')"
                         name="name"
                     >
                         <a-input 
                             v-model:value="userForm.name" 
-                            placeholder="Ismini kiriting" 
+                            :placeholder="t('Users.UserForm.enterName')" 
                             size="large"
                             class="w-full!"
                         />
@@ -70,12 +72,12 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: true, message: 'Majburiy maydon' }"
-                        label="Familyasi"
+                        :label="t('Users.UserForm.surname')"
                         name="surname"
                     >
                         <a-input 
                             v-model:value="userForm.surname" 
-                            placeholder="Familyasini kiriting" 
+                            :placeholder="t('Users.UserForm.enterSurname')" 
                             size="large"
                             class="w-full!"
                         />
@@ -86,7 +88,7 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: true, message: 'Majburiy maydon' }"
-                        label="Yoshini kiriting"
+                        :label="t('Users.UserForm.age')"
                         name="age"
                     >
                         <!-- <a-date-picker 
@@ -96,7 +98,7 @@ function closeModal() {
                             class="w-full!"
                         /> -->
                         <a-input-number 
-                            placeholder="Yoshini kiriting"
+                            :placeholder="t('Users.UserForm.enterAge')" 
                             size="large"
                             v-model:value="userForm.age"
                             class="w-full!"
@@ -106,12 +108,12 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: true, message: 'Majburiy maydon' }"
-                        label="Login"
+                        :label="t('Users.UserForm.login')"
                         name="login"
                     >
                         <a-input 
                             v-model:value="userForm.login" 
-                            placeholder="Loginini kiriting" 
+                            :placeholder="t('Users.UserForm.enterLogin')" 
                             size="large"
                             class="w-full!"
                         />
@@ -122,12 +124,12 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: !userId, message: 'Majburiy maydon' }"
-                        label="Paroli"
+                        :label="t('Users.UserForm.password')"
                         name="password"
                     >
                         <a-input 
                             v-model:value="userForm.password" 
-                            placeholder="Parolini kiriting" 
+                            :placeholder="t('Users.UserForm.enterPassword')" 
                             size="large"
                             class="w-full!"
                         />
@@ -136,12 +138,12 @@ function closeModal() {
                 <a-col :span="12">
                     <a-form-item 
                         :rules="{ required: true, message: 'Majburiy maydon' }"
-                        label="Guruhi"
+                        :label="t('Users.UserForm.group')"
                         name="group"
                     >
                         <a-input
                             v-model:value="userForm.group" 
-                            placeholder="Guruh raqamini kiriting" 
+                            :placeholder="t('Users.UserForm.enterGroup')" 
                             size="large"
                             class="w-full!"
                         />
@@ -158,7 +160,7 @@ function closeModal() {
                     size="large"
                     class="btn"
                 >
-                    Bekor qilish
+                    {{ t("CANCEL") }}
                 </a-button>
                 <a-button
                     class="btn"
@@ -172,7 +174,7 @@ function closeModal() {
                         <icon-circle-plus v-if="!userId" class="w-5 h-5"/>
                         <icon-update v-else class="w-5 h-5"/>
                     </template>
-                    {{ userId ? "Yangilash" : "Qo'shish" }}
+                    {{ userId ? t("UPDATE") : t("ADD") }}
                 </a-button>
             </div>
         </template>

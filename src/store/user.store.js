@@ -6,6 +6,9 @@ const useUser = defineStore("user", {
   state: () => ({
     user: {},
     users: [],
+    totalUsers: 0,
+    pageSize: 0,
+    currentPage: 1,
     params: {
       size: 10,
       page: 0,
@@ -47,7 +50,7 @@ const useUser = defineStore("user", {
         });
     },
 
-    updateMe() {
+    updateMe(t) {
       this.buttonLoading = true;
 
       api({
@@ -58,7 +61,7 @@ const useUser = defineStore("user", {
         .then(({ data }) => {
           this.user = data.user;
           notification.success({
-            message: "Sozlamalar saqlandi",
+            message: t("NOTIFICATION.updateSetting"),
           });
         })
         .catch((error) => {
@@ -85,7 +88,10 @@ const useUser = defineStore("user", {
         method: "GET",
       })
         .then(({ data }) => {
-          this.users = data;
+          this.users = data.data;
+          this.totalUsers = data.totalUsers;
+          this.pageSize = data.size;
+          this.currentPage = page + 1;
         })
         .catch((error) => {
           notification.error({
@@ -98,7 +104,7 @@ const useUser = defineStore("user", {
         });
     },
 
-    createUser(callback) {
+    createUser(t, callback) {
       this.buttonLoading = true;
 
       api({
@@ -109,7 +115,7 @@ const useUser = defineStore("user", {
         .then(({ data }) => {
           this.users.unshift(data);
           notification.success({
-            message: "Foydalanuvchi qo'shildi",
+            message: t("NOTIFICATION.createdUser"),
           });
 
           callback?.();
@@ -125,7 +131,7 @@ const useUser = defineStore("user", {
         });
     },
 
-    updateUser(callback, id) {
+    updateUser(t, callback, id) {
       this.buttonLoading = true;
 
       api({
@@ -140,7 +146,7 @@ const useUser = defineStore("user", {
             this.users[index] = data.user;
           }
           notification.success({
-            message: "Foydalanuvchi ma'lumotlari yangilandi",
+            message: t("NOTIFICATION.updatedUser"),
           });
 
           callback?.();
@@ -156,7 +162,7 @@ const useUser = defineStore("user", {
         });
     },
 
-    updateRole(role, id) {
+    updateRole(t, role, id) {
       this.selectLoading[id] = true;
 
       api({
@@ -173,7 +179,7 @@ const useUser = defineStore("user", {
             this.users[index] = data.user;
           }
           notification.success({
-            message: "Foydalanuvchi roli o'zgartirildi",
+            message: t("NOTIFICATION.changedRole"),
           });
         })
         .catch((error) => {
@@ -187,7 +193,7 @@ const useUser = defineStore("user", {
         });
     },
 
-    deleteUser(id) {
+    deleteUser(t, id) {
       this.loading = true;
 
       api({
@@ -197,7 +203,7 @@ const useUser = defineStore("user", {
         .then(() => {
           this.users = this.users.filter((user) => user._id !== id);
           notification.success({
-            message: "Foydalanuvchi muvaffaqiyatli o'chirildi",
+            message: t("NOTIFICATION.deletedUser"),
           });
         })
         .catch((error) => {

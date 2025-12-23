@@ -10,10 +10,13 @@ import IconTasks from '../../../../components/icons/line/IconTasks.vue';
 import IconTrash from '../../../../components/icons/line/IconTrash.vue';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 const usersStore = useUser()
 const { userForm } = storeToRefs(usersStore)
 const router = useRouter()
+const { t } = useI18n()
+const column = usersColumn()
 
 const openUserForm = ref(false)
 const userId = ref(null)
@@ -30,12 +33,12 @@ function openForm(record) {
 } 
 
 const options = [
-    { label: "Adminstrator", value: "admin" },
-    { label: "Student", value: "student" },
+    { label: t("ROLES.ADMIN"), value: "admin" },
+    { label: t("ROLES.STUDENT"), value: "student" },
 ]
 
 function changeRole(value, id) {
-    usersStore.updateRole(value, id)
+    usersStore.updateRole(t, value, id)
 }
 
 function openTasks(id) {
@@ -46,16 +49,29 @@ function openTasks(id) {
         }
     })
 }
+
+const handlePageChange = (pag) => {
+    const page = pag.current ? pag.current - 1 : 0
+    const size = pag.pageSize || 0
+    usersStore.getUsers({ page, size })
+}
 </script>
 
 <template>
     <base-table-component
         :data="usersStore.users"
-        :columns="usersColumn"
+        :columns="column"
         :loading="usersStore.loading"
+        :total="usersStore.totalUsers"
+        @page-change="handlePageChange"
     >
         <template #bodyCell="{ column, record, index }">
-            <template v-if="column.key === 'name'">
+            <template v-if="column.key === 'colIndex'">
+                <span class="text-center!">
+                    {{ (usersStore.currentPage - 1) * usersStore.pageSize + index + 1 }}
+                </span>
+            </template>
+            <template v-else-if="column.key === 'name'">
                 {{ record.name }} {{ record.surname }}
             </template>
             <template v-else-if="column.key === 'age'">
@@ -88,25 +104,25 @@ function openTasks(id) {
                        <template #overlay>
                            <a-menu>
                                <a-menu-item @click="openForm(record)">
-                                   <a-button class="flex! justify-center! items-center! gap-2!">
-                                       Tahrirlash 
+                                   <a-button class="flex! justify-start! items-center! gap-2! w-full!">
+                                       {{ t("EDIT") }} 
                                       <template #icon>
                                            <icon-edit class="w-5 h-5"/>
                                       </template>
                                    </a-button>
                                </a-menu-item>
                                <a-menu-item v-if="record.role === 'student'" @click="openTasks(record._id)">
-                                   <a-button class="flex! justify-center! items-center! gap-2!">
-                                       Vazifalari 
+                                   <a-button class="flex! justify-start! items-center! gap-2! w-full!">
+                                       {{ t("TASKS") }} 
                                       <template #icon>
                                            <icon-tasks class="w-5 h-5"/>
                                       </template>
                                    </a-button>
                                </a-menu-item>
                                <a-menu-item>
-                                   <a-popconfirm @confirm="usersStore.deleteUser(record._id)" ok-text="Ha" cancel-text="Yo'q" title="O'chirishga rozimisiz ?">
-                                        <a-button class="flex! justify-center! items-center! gap-2!" danger>
-                                           O'chirish
+                                   <a-popconfirm @confirm="usersStore.deleteUser(t, record._id)" :ok-text="t('YES')" :cancel-text="t('NO')" :title="t('DO_DELETE')">
+                                        <a-button class="flex! justify-start! items-center! gap-2! w-full!" danger>
+                                           {{ t("DELETE") }}
                                           <template #icon>
                                                <icon-trash class="w-5 h-5"/>
                                           </template>

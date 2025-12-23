@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import LoginFormComponent from './components/LoginFormComponent.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t, locale } = useI18n()
 
 const languageValue = ref(localStorage.getItem("lang") || 'uz')
 
@@ -9,6 +12,11 @@ const languageOptions = ref([
     { label: 'RU', value: 'ru' },
     { label: 'EN', value: 'en' }
 ])
+
+function changeLang(value) {
+    localStorage.setItem("lang", value)
+    locale.value = value
+}
 </script>
 
 <template>
@@ -17,11 +25,16 @@ const languageOptions = ref([
             <img class="rounded-tl-[30px]! rounded-bl-[30px]!" width="500" height="600"
                 src="../../assets/images/login.png" alt="login-img">
             <div class="px-35">
-                <h2 class="font-bold text-4xl mb-4">Tizimga kirish</h2>
+                <h2 class="font-bold text-4xl mb-4">{{ t("Login.login") }}</h2>
                 <login-form-component />
             </div>
 
-            <a-select class="absolute! top-2! right-2!" v-model:value="languageValue" :options="languageOptions" />
+            <a-select 
+                class="absolute! top-2! right-2!" 
+                v-model:value="languageValue" 
+                :options="languageOptions" 
+                @change="changeLang"
+            />
         </div>
     </div>
 </template>

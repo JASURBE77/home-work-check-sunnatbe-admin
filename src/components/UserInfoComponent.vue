@@ -3,9 +3,11 @@ import { useRouter } from 'vue-router';
 import useUser from '../store/user.store';
 import IconUser from './icons/line/IconUser.vue';
 import SwitchComponent from './SwitchComponent.vue';
+import { useI18n } from 'vue-i18n';
 
 const router = useRouter()
 const userStore = useUser()
+const { t } = useI18n()
 
 function leave() {
     localStorage.removeItem("access_token")
@@ -32,9 +34,9 @@ function leave() {
                                 userStore.user.surname
                                 }}</span>
                         </a-menu-item>
-                        <a-popconfirm @confirm="leave" ok-text="Ha" cancel-text="Yo'q" title="Chiqishni hohlaysizmi ?">
+                        <a-popconfirm @confirm="leave" :ok-text="t('YES')" :cancel-text="t('NO')" :title="t('DO_EXIT')">
                             <a-menu-item key="1">
-                                <span class="text-red-500">Chiqish</span>
+                                <span class="text-red-500">{{ t("EXIT") }}</span>
                             </a-menu-item>
                         </a-popconfirm>
                     </a-menu>
