@@ -66,6 +66,7 @@ export const uz = {
   STATUSES: {
     PENDING: "Kutilmoqda",
     CHECKED: "Tekshirilgan",
+    AGAIN_CHECKED: "Qayta tekshirilgan",
     NOTCREATED: "Joylanmagan",
   },
 
@@ -84,6 +85,8 @@ export const uz = {
     deletedUser: "Foydalanuvchi o'chirildi",
     changedRole: "Foydalanuvchi roli o'zgartirildi",
     STOPYOU: "Sizga ruxsat yo'q",
+    checkedStudent: "O'quvchi tekshirildi",
+    againCheckedStudent: "O'quvchi qayta tekshirildi"
   },
 
   CANCEL: "Bekor qilish",

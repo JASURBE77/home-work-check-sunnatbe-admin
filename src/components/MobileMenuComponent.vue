@@ -3,6 +3,8 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import useTheme from '../store/theme.pinia';
+import IconGroup from './icons/line/IconGroup.vue';
+import IconSetting from './icons/line/IconSetting.vue';
 
 const open = defineModel("open", {
     type: Boolean,

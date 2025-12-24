@@ -22,9 +22,10 @@ function leave() {
 </script>
 
 <template>
-    <div class="flex justify-end items-center mt-3 mr-8">
-        <div class="flex justify-between items-center w-full">
-            <a-button size="large" @click="openMenu = !openMenu" class="btn border-none! bg-none! block md:hidden">
+    <div class="flex justify-end items-center mt-3 mr-5">
+        <div class="flex justify-between md:justify-end items-center w-full">
+            <a-button size="large" @click="openMenu = !openMenu"
+                class="btn border-none! bg-none! block! md:hidden! ml-5!">
                 <template #icon>
                     <icon-burger class="w-7 h-7" />
                 </template>
@@ -34,8 +35,8 @@ function leave() {
         <div class="flex items-center justify-end gap-3 cursor-pointer">
             <a-dropdown trigger="hover">
                 <div class="flex items-center gap-2">
-                    <div class="flex justify-center items-center w-10 h-10 rounded-full bg-gray-300 text-white">
-                        <icon-user class="w-6 h-6" />
+                    <div class="flex justify-center items-center w-12 h-12 rounded-full bg-gray-400 text-white">
+                        <icon-user class="w-7 h-7" />
                     </div>
                 </div>
 
@@ -44,7 +45,8 @@ function leave() {
                         <a-menu-item>
                             <span class="text-[16px] font-semibold mb-6! p-0!">{{ userStore.user.name }} {{
                                 userStore.user.surname
-                            }}</span>
+                                }}</span>
+                           
                         </a-menu-item>
                         <a-popconfirm @confirm="leave" :ok-text="t('YES')" :cancel-text="t('NO')" :title="t('DO_EXIT')">
                             <a-menu-item key="1">

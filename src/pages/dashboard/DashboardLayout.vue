@@ -16,6 +16,8 @@ const { t } = useI18n()
 
 const selectedKeys = ref(['1']);
 
+const version = __APP_VERSION__;
+
 onMounted(() => {
     userStore.me()
 })
@@ -24,6 +26,7 @@ watch(() => route.path, () => {
     if (route.name === 'Users') selectedKeys.value = ['1']
     else if (route.name === 'Setting') selectedKeys.value = ['2']
 }, { immediate: true })
+
 </script>
 
 <template>
@@ -44,6 +47,9 @@ watch(() => route.path, () => {
                     </div>
                 </a-menu-item>
             </a-menu>
+
+            <span class="fixed bottom-2 left-20 text-white">Versiya: {{ version }}</span>
+
         </a-layout-sider>
         <a-layout>
             <a-layout-header class="p-0!" :class="themeStore.isDark ? '' : 'bg-white!'">

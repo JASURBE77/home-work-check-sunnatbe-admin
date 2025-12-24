@@ -31,7 +31,7 @@ const useTask = defineStore("task", {
         });
     },
 
-    checkTask(form, submissionId) {
+    checkTask(form, submissionId, callback, t) {
       this.buttonLoading = true;
 
       api({
@@ -41,10 +41,22 @@ const useTask = defineStore("task", {
           form,
         },
       })
-        .then(() => {
+        .then(({ data }) => {
+          const index = this.tasks.findIndex(
+            (task) => task._id === submissionId
+          );
+
+          if (index !== -1) {
+            this.tasks[index] = {
+              ...this.tasks[index],
+              ...data.submission,
+            };
+          }
           notification.success({
-            message: "O'quvchi tekshirildi",
+            message: t("NOTIFICATION.checkedStudent"),
           });
+
+          callback?.();
         })
         .catch((error) => {
           notification.error({

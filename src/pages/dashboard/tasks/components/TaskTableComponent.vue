@@ -49,11 +49,14 @@ function checkModal(id) {
                 {{ dayjs(record.date).format("DD.MM.YYYY") }}
             </template>
             <template v-else-if="column.key === 'status'">
-                <a-tag v-if="record.status === 'PENDING'" color="processing">
+                <a-tag :bordered="false" class="w-full! text-center!" v-if="record.status === 'PENDING'" color="processing">
                     {{ t("STATUSES.PENDING") }}
                 </a-tag>
-                <a-tag v-if="record.status === 'CHECKED'" color="success">
+                <a-tag :bordered="false" class="w-full! text-center!" v-if="record.status === 'CHECKED'" color="success">
                     {{ t("STATUSES.CHECKED") }}
+                </a-tag>
+                <a-tag :bordered="false" class="w-full! text-center!" v-if="record.status === 'AGAIN CHECKED'" color="orange">
+                    {{ t("STATUSES.AGAIN_CHECKED") }}
                 </a-tag>
             </template>
             <template v-else-if="column.key === 'actions'">
