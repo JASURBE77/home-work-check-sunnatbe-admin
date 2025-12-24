@@ -4,8 +4,12 @@ import IconCheck from '../../../../../components/icons/line/IconCheck.vue';
 import { ref } from 'vue';
 import { notification } from 'ant-design-vue';
 import { useI18n } from 'vue-i18n';
+import useTask from '../../../../../store/task.store';
+import { useRoute } from 'vue-router';
 
 const { t } = useI18n()
+const tasksStore = useTask()
+const route = useRoute()
 
 const open = defineModel("open", {
     type: Boolean,
@@ -15,7 +19,7 @@ const open = defineModel("open", {
 const score = ref(null)
 const description = ref("")
 
-function submit() {
+function submit(id) {
     if (!score.value > 0) {
         notification.warn({
             message: t("CHECK.enterBall")
@@ -31,6 +35,15 @@ function submit() {
         
         return
     }
+
+    const payload = {
+        score: score.value,
+        teacherDescription: description.value
+    }
+
+    const submissionId = route.query.submissionId
+
+    tasksStore.checkTask(payload, submissionId)
 }
 </script>
 

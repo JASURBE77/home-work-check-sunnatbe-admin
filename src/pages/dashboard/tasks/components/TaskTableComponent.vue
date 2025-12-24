@@ -8,12 +8,24 @@ import dayjs from 'dayjs';
 import IconReset from '../../../../components/icons/line/IconReset.vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
+import useQueryParams from '../../../../utils/helpers/query.params';
 
 const tasksStore = useTask()
 const column = tasksColumn()
+const route = useRoute()
 const { t } = useI18n()
+const { setQueries, getQueries } = useQueryParams()
 
 const openCheckModal = ref(false)
+
+function checkModal(id) {
+    setQueries({
+        submissionId: id
+    })
+
+    openCheckModal.value = !openCheckModal.value
+}
 </script>
 
 <template>
@@ -45,14 +57,14 @@ const openCheckModal = ref(false)
                 </a-tag>
             </template>
             <template v-else-if="column.key === 'actions'">
-                <a-button v-if="false" @click="openCheckModal = true" class="btn text-green-600! border-green-600!">
+                <a-button v-if="record.status === 'PENDING'" @click="checkModal(record._id)" class="btn text-green-600! border-green-600!">
                     <template #icon>
                         <icon-check class="w-5 h-5"/>
                     </template>
                 </a-button>
 
-                <a-tooltip :title="t('CHECK.againCheck')" v-else-if="true" >
-                    <a-button @click="openCheckModal = true" class="btn text-blue-600! border-blue-600!">
+                <a-tooltip :title="t('CHECK.againCheck')" v-else-if="record.status === 'CHECKED'" >
+                    <a-button @click="checkModal(record._id)" class="btn text-blue-600! border-blue-600!">
                         <template #icon>
                             <icon-reset class="w-5 h-5"/>
                         </template>
