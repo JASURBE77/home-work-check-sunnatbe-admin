@@ -28,7 +28,7 @@ watch(() => route.path, () => {
 
 <template>
     <a-layout class="h-screen!">
-        <a-layout-sider :width="250" :trigger="null">
+        <a-layout-sider class="hidden! md:block!" :width="250" :trigger="null">
             <h2 class="text-white text-3xl font-bold p-5 text-center">SUNNATBE</h2>
             <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
                 <a-menu-item @click="router.push({ name: 'Users' })" key="1">
