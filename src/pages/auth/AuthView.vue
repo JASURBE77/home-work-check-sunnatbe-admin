@@ -22,15 +22,15 @@ function changeLang(value) {
 <template>
     <div class="flex justify-center items-center h-screen">
         <div class="flex justify-between items-center shadow-md rounded-[30px]! relative">
-            <img class="rounded-tl-[30px]! rounded-bl-[30px]!" width="500" height="600"
+            <img class="hidden md:block rounded-tl-[30px]! rounded-bl-[30px]!" width="500" height="600"
                 src="../../assets/images/login.png" alt="login-img">
-            <div class="px-35">
+            <div class="p-14! md:px-35">
                 <h2 class="font-bold text-4xl mb-4">{{ t("Login.login") }}</h2>
                 <login-form-component />
             </div>
 
             <a-select 
-                class="absolute! top-2! right-2!" 
+                class="absolute! top-4! right-2!" 
                 v-model:value="languageValue" 
                 :options="languageOptions" 
                 @change="changeLang"

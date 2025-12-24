@@ -3,11 +3,16 @@ import { useRouter } from 'vue-router';
 import useUser from '../store/user.store';
 import IconUser from './icons/line/IconUser.vue';
 import SwitchComponent from './SwitchComponent.vue';
+import IconBurger from './icons/line/IconBurger.vue';
+import MobileMenuComponent from './MobileMenuComponent.vue';
 import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 
 const router = useRouter()
 const userStore = useUser()
 const { t } = useI18n()
+
+const openMenu = ref(false)
 
 function leave() {
     localStorage.removeItem("access_token")
@@ -18,7 +23,14 @@ function leave() {
 
 <template>
     <div class="flex justify-end items-center mt-3 mr-8">
-        <switch-component />
+        <div class="flex justify-between items-center w-full">
+            <a-button size="large" @click="openMenu = !openMenu" class="btn border-none! bg-none! block md:hidden">
+                <template #icon>
+                    <icon-burger class="w-7 h-7" />
+                </template>
+            </a-button>
+            <switch-component />
+        </div>
         <div class="flex items-center justify-end gap-3 cursor-pointer">
             <a-dropdown trigger="hover">
                 <div class="flex items-center gap-2">
@@ -32,7 +44,7 @@ function leave() {
                         <a-menu-item>
                             <span class="text-[16px] font-semibold mb-6! p-0!">{{ userStore.user.name }} {{
                                 userStore.user.surname
-                                }}</span>
+                            }}</span>
                         </a-menu-item>
                         <a-popconfirm @confirm="leave" :ok-text="t('YES')" :cancel-text="t('NO')" :title="t('DO_EXIT')">
                             <a-menu-item key="1">
@@ -44,4 +56,6 @@ function leave() {
             </a-dropdown>
         </div>
     </div>
+
+    <mobile-menu-component v-model:open="openMenu" />
 </template>
