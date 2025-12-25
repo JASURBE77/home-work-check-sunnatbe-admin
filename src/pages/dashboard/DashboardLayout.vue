@@ -7,6 +7,7 @@ import UserInfoComponent from '../../components/UserInfoComponent.vue';
 import useTheme from '../../store/theme.pinia';
 import { useI18n } from 'vue-i18n';
 import useUser from '../../store/user.store';
+import IconUser from '../../components/icons/line/IconUser.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -24,7 +25,8 @@ onMounted(() => {
 
 watch(() => route.path, () => {
     if (route.name === 'Users') selectedKeys.value = ['1']
-    else if (route.name === 'Setting') selectedKeys.value = ['2']
+    else if (route.name === 'Groups' || route.name === 'GroupStudents') selectedKeys.value = ['2']
+    else if (route.name === 'Setting') selectedKeys.value = ['3']
 }, { immediate: true })
 
 </script>
@@ -36,11 +38,17 @@ watch(() => route.path, () => {
             <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
                 <a-menu-item @click="router.push({ name: 'Users' })" key="1">
                     <div class="flex items-center gap-2">
-                        <icon-group class="w-4 h-4" />
+                        <icon-user class="w-4 h-4" />
                         <span>{{ t("Users.users") }}</span>
                     </div>
                 </a-menu-item>
-                <a-menu-item @click="router.push({ name: 'Setting' })" key="2">
+                <a-menu-item @click="router.push({ name: 'Groups' })" key="2">
+                    <div class="flex items-center gap-2">
+                        <icon-group class="w-4 h-4" />
+                        <span>Guruhlar</span>
+                    </div>
+                </a-menu-item>
+                <a-menu-item @click="router.push({ name: 'Setting' })" key="3">
                     <div class="flex items-center gap-2">
                         <icon-setting class="w-4 h-4" />
                         <span>{{ t("settings.settings") }}</span>

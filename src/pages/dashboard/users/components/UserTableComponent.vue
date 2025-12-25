@@ -27,7 +27,7 @@ function openForm(record) {
     userForm.value.surname = record.surname
     userForm.value.age = record.age
     userForm.value.login = record.login
-    userForm.value.group = record.group
+    userForm.value.group = record.group._id
 
     openUserForm.value = true
 } 
@@ -94,7 +94,7 @@ const handlePageChange = (pag) => {
                 {{ record.level }}
             </template>
             <template v-else-if="column.key === 'group'">
-                {{ record.group }}
+                {{ record.group.name }}
             </template>
             <template v-else-if="column.key === 'actions'">
                <div class="flex justify-center items-center">

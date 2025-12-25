@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardLayout from "../pages/dashboard/DashboardLayout.vue";
 import AuthView from "../pages/auth/AuthView.vue";
-import UsersView from "../pages/dashboard/groups/UsersView.vue";
+import UsersView from "../pages/dashboard/users/UsersView.vue";
 import ServerInternalError from "../pages/errors/ServerInternalError.vue";
 import TasksView from "../pages/dashboard/tasks/TasksView.vue";
 import SettingsView from "../pages/dashboard/setting/SettingsView.vue";
+import GroupsView from "../pages/dashboard/groups/GroupsView.vue";
+import GroupStudentsView from "../pages/dashboard/group-students/GroupStudentsView.vue";
 
 const routes = [
   {
@@ -27,15 +29,9 @@ const routes = [
         component: UsersView,
         children: [
           {
-            path: "group-students",
-            name: "GroupStudents",
-            children: [
-              {
-                path: "tasks/:userId",
-                name: "Tasks",
-                component: TasksView,
-              },
-            ],
+            path: "tasks/:userId",
+            name: "Tasks",
+            component: TasksView,
             meta: {
               title: "Guruh o'quvchilari",
             },
@@ -44,6 +40,24 @@ const routes = [
         meta: {
           title: "Foydalanuvchilar",
         },
+      },
+      {
+        path: "groups",
+        name: "Groups",
+        component: GroupsView,
+        meta: {
+          title: "Guruhlar",
+        },
+        children: [
+          {
+            path: "students/:groupId",
+            name: "GroupStudents",
+            component: GroupStudentsView,
+            meta: {
+              title: "Guruh o'quvchilari",
+            },
+          },
+        ],
       },
       {
         path: "setting",

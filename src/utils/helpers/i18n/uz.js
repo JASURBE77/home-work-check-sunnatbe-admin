@@ -37,6 +37,15 @@ export const uz = {
     },
   },
 
+  Students: {
+    students: "Guruh o'quvchilari",
+    FISH: "F.I.SH",
+    totalHomeworks: "Yuklangan uy vazifalar",
+    completedHomeworks: "Tugatilgan uy vazifalar",
+    pendingHomeworks: "Kutilayotgan uy vazifalar",
+    wpm: "Tezligi"
+  },
+
   Tasks: {
     tasks: "O'quvchi vazifalari",
     studentDescription: "O'quvchi izohi",
@@ -76,6 +85,14 @@ export const uz = {
     enterDescription: "Izohni kiriting",
     againCheck: "Qayta tekshirish",
     moreDescription: "Batafsil izoh bering",
+  },
+
+  GROUP: {
+    groupName: "Guruh nomi",
+    groupUsersCount: "O'quvchilar",
+    description: "Izoh",
+    groups: "Guruhlar",
+    groupLessons: "Dars kunlari"
   },
 
   NOTIFICATION: {

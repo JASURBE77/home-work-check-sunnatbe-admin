@@ -21,7 +21,7 @@ const useUser = defineStore("user", {
       login: "",
       password: "",
       level: 0,
-      group: "",
+      group: null,
     },
     loading: false,
     buttonLoading: false,
@@ -113,7 +113,7 @@ const useUser = defineStore("user", {
         data: this.userForm,
       })
         .then(({ data }) => {
-          this.users.unshift(data);
+          this.users.unshift(data.newUser);
           notification.success({
             message: t("NOTIFICATION.createdUser"),
           });

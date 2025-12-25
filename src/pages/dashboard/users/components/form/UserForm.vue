@@ -4,10 +4,13 @@ import useUser from '../../../../../store/user.store';
 import IconCirclePlus from '../../../../../components/icons/line/IconCirclePlus.vue';
 import IconUpdate from '../../../../../components/icons/line/IconUpdate.vue';
 import { useI18n } from 'vue-i18n';
+import { watch } from 'vue';
+import useGroup from '../../../../../store/group.store';
 
 const usersStore = useUser()
 const { userForm } = storeToRefs(usersStore)
 const { t } = useI18n()
+const groupsStore = useGroup()
 
 const open = defineModel("open", {
     type: Boolean,
@@ -32,13 +35,17 @@ function closeModal() {
     userForm.value.name = "",
     userForm.value.surname = "",
     userForm.value.login = "",
-    userForm.value.group = "",
+    userForm.value.group = null,
     userForm.value.level = 0,
     userForm.value.password = null,
     userForm.value.age = null
 
     open.value = false
 }
+
+watch(() => open.value, () => {
+    groupsStore.getGroups()
+})
 </script>
 
 <template>
@@ -137,16 +144,14 @@ function closeModal() {
                 </a-col>
                 <a-col :span="12">
                     <a-form-item 
-                        :rules="{ required: true, message: 'Majburiy maydon' }"
                         :label="t('Users.UserForm.group')"
                         name="group"
                     >
-                        <a-input
-                            v-model:value="userForm.group" 
-                            :placeholder="t('Users.UserForm.enterGroup')" 
-                            size="large"
-                            class="w-full!"
-                        />
+                        <a-select v-model:value="userForm.group" size="large" :placeholder="t('Users.UserForm.enterGroup')">
+                            <a-select-option :value="group._id" v-for="group in groupsStore.groups" :key="group._id">
+                                {{ group.groupName }}
+                            </a-select-option>
+                        </a-select>
                     </a-form-item>
                 </a-col>
             </a-row>
@@ -156,6 +161,7 @@ function closeModal() {
             <div class="flex justify-end gap-2">
                 <a-button 
                     @click="closeModal"
+                    type="primary"
                     danger
                     size="large"
                     class="btn"
