@@ -10,8 +10,13 @@ const route = useRoute()
 
 onMounted(() => {
     const userId = route.params.userId
+    tasksStore.params.status = route.query.status
 
-    tasksStore.getTasks(userId)
+    tasksStore.getTasks(userId, {
+        size: tasksStore.params.size,
+        page: tasksStore.params.page,
+        status: tasksStore.params.status
+    })
 })
 </script>
 

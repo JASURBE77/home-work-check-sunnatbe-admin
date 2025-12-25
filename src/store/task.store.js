@@ -8,18 +8,34 @@ const useTask = defineStore("task", {
     tasks: [],
     loading: false,
     buttonLoading: false,
+    totalTasks: 0,
+    pageSize: 0,
+    currentPage: 1,
+    params: {
+      size: 10,
+      page: 0,
+      status: null,
+    },
   }),
 
   actions: {
-    getTasks(id) {
+    getTasks(id, { page = 0, size = 10, status } = {}) {
       this.loading = true;
 
       api({
         url: `submissions/${id}`,
         method: "GET",
+        params: {
+          size,
+          page,
+          status,
+        },
       })
         .then(({ data }) => {
-          this.tasks = data.recentSubmissions;
+          this.tasks = data.data;
+          this.totalTasks = data.totalTasks;
+          this.pageSize = data.size;
+          this.currentPage = page + 1;
         })
         .catch((error) => {
           notification.error({
@@ -38,20 +54,22 @@ const useTask = defineStore("task", {
         url: `submissions/${useUser().user._id}/${submissionId}`,
         method: "put",
         data: {
-          form,
+          score: form.score,
+          teacherDescription: form.teacherDescription,
         },
       })
         .then(({ data }) => {
           const index = this.tasks.findIndex(
-            (task) => task._id === submissionId
+            (task) => task.submission._id === submissionId
           );
 
           if (index !== -1) {
-            this.tasks[index] = {
-              ...this.tasks[index],
+            this.tasks[index].submission = {
+              ...this.tasks[index].submission,
               ...data.submission,
             };
           }
+
           notification.success({
             message: t("NOTIFICATION.checkedStudent"),
           });

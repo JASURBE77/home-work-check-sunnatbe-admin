@@ -1,7 +1,7 @@
 import { useI18n } from "vue-i18n";
 
 export const tasksColumn = () => {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return [
     {
@@ -22,7 +22,7 @@ export const tasksColumn = () => {
       title: t("Tasks.teacherDescription"),
       dataIndex: "teacherDescription",
       key: "teacherDescription",
-      width: 200,
+      width: 300,
       align: "center",
     },
     {
@@ -36,6 +36,20 @@ export const tasksColumn = () => {
       title: t("Tasks.created"),
       dataIndex: "date",
       key: "date",
+      width: 100,
+      align: "center",
+    },
+    {
+      title: "Tekshirilgan",
+      dataIndex: "checkedDate",
+      key: "checkedDate",
+      width: 100,
+      align: "center",
+    },
+    {
+      title: "Tekshirgan",
+      dataIndex: "checkedBy",
+      key: "checkedBy",
       width: 100,
       align: "center",
     },
